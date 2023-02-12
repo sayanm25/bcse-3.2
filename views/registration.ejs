@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/form.css">
+  <title>Login</title>
+  <style>
+    body {
+	background: linear-gradient(90deg, #f18787, #fc1707);		
+}
+.screen {		
+	background: linear-gradient(90deg, #a45954, #b87a78);		
+
+	box-shadow: 0px 0px 24px #965656;
+}
+
+.screen__background__shape2 {
+
+	background: #ac6363;	
+
+}
+
+.screen__background__shape3 {
+
+	background: linear-gradient(270deg, #a45454, #9e6b67);
+}
+
+.screen__background__shape4 {
+
+	background: #b97b7b;	
+
+}
+  </style>
+</head>
+<body>
+  <div>
+    <center><h1 style="margin-top: 30px">Registration Form</h1></center>
+    <div class="container">
+      <div class="screen" style="margin: 40px;padding: 5px;">
+        <div class="screen__content" >
+          <form class="login" action="/registration" method="post" enctype="multipart/form-data">
+            <div class="login__field">
+              <i class="login__icon fas fa-user"></i>
+              <input type="name" class="login__input" placeholder="User name" required id="name"  name="name">
+            </div>
+            <div class="login__field">
+              <i class="login__icon fas fa-user"></i>
+              <input type="email" class="login__input" placeholder="User Email" required id="email"  name="email">
+            </div>
+            <div class="login__field">
+              <i class="login__icon fas fa-user"></i>
+              <input type="file" class="login__input" id="image" name="image" value="" required>
+          </div>
+            <div class="login__field">
+              <i class="login__icon fas fa-lock"></i>
+              <input type="password" class="login__input" placeholder="Password" required id="password" name="password">
+            </div>
+            <button class="button login__submit" type="submit">
+              <span class="button__text">Register Now</span>
+              <i class="button__icon fas fa-chevron-right"></i>
+            </button>				
+            	
+          </form>
+          <button type="reset" class="button login__submit" style="width: fit-content;margin-left: 40px;margin-bottom: 20px;"><a href="/login" style="text-decoration: none;">Go to Login</a></button>
+          
+        </div>
+        <div class="screen__background">
+          <span class="screen__background__shape screen__background__shape4"></span>
+          <span class="screen__background__shape screen__background__shape3"></span>		
+          <span class="screen__background__shape screen__background__shape2"></span>
+          <span class="screen__background__shape screen__background__shape1"></span>
+        </div>		
+      </div>
+    </div>
+  </div>
+</body>
+</html>

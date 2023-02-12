@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Document Upload</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"> </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-image: url('background/OIP.jpeg');
+            background-repeat: no-repeat;
+            background-color: rgb(156, 111, 111);
+            background-blend-mode: multiply;
+            background-position-x: center;
+            background-size: cover;
+            color: azure;
+            /* text-align: center; */
+        }
+
+        .totalsection {
+            margin-top: 30px;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 33%;
+            padding: 10px;
+        }
+
+        .form-group {
+            width: 90%;
+            align-items: center;
+            margin: 30px;
+
+        }
+
+
+        /* Clear floats after the columns */
+        .responsive:after {
+            content: "";
+            display: table;
+            clear: both;
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            text-align: center;
+            font-family: 'Lobster', cursive;
+        }
+
+        .totalsection {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Library System</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/registration">Registration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/upload">Image Upload</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Options
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/login">Login</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+        <div class="totalsection">
+
+
+            <div>
+                <form action="/docupload" method="POST">
+                    <div class="form-group">
+                        <label for="name">Text Title</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" value="" name="name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desc">Text Description</label>
+                        <input type="text" id="desc" class="form-control" name="desc" value="" placeholder="Description"
+                            required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="visibility">Visibility</label>
+
+                        <input type="text" class="form-control" id="visibility" placeholder="Public/Private" value=""
+                            name="visibility" required>
+
+                    </div>
+                    <div>
+                        <center><button class="btn btn-primary" type="submit">Submit</button></center>
+                    </div>
+                </form>
+            </div>
+
+            <hr>
+
+            <h1>Public Uploaded Text</h1>
+            <div class="responsive">
+                <% if (items.reduce((a, obj) => a + Object.keys(obj).length, 0)==0) { %>
+                    
+                    <center><h5 style="margin: 50px;">
+                        Oops no text to show 😅😅😅 !!!! 
+                    </h5></center>
+                    
+                    <% } %>
+                <% items.forEach(function(image) { %>
+                <div class="column">
+
+                    <div class="card" style="width: 18rem; height: 19rem;margin: 10px;">
+
+                        <div class="card-body" style="background-color: rgb(244, 244, 186);font-family: cursive;">
+                            <h5 class="card-title" style="color: rgb(21, 148, 95);"><%= image.name %></h5>
+                            <p class="card-text" id="txt" style="color: black;"><%= image.desc %></p>
+                            <!-- <a href="/deletedoc/<%= image._id%>" class="btn btn-primary">Delete</a> -->
+                            <%if (image.email==orgemail || image.role=="manager") { %>
+                                <a href="/deletedoc/<%= image._id%>" class="btn btn-primary">Delete</a>
+                                <% } %>
+                            <a href="" id="link" onclick = "CreateTextFile();" class="btn btn-danger">Download</a>
+                            <script>
+                                function CreateTextFile() {
+                                    var text= '<%-image.desc%>'
+                                    var blob = new Blob([text], {
+                                        type: "text/plain;charset=utf-8",
+                                    });
+                                    saveAs(blob, "download.txt");
+                                }
+                            </script>
+                        </div>
+                    </div>
+
+
+                </div>
+                <% }) %>
+            </div>
+
+
+
+            <h1>Private Uploaded Text</h1>
+            <div class="responsive">
+                <% if (privitems.reduce((a, obj) => a + Object.keys(obj).length, 0)==0) { %>
+                    <center><h5 style="margin: 50px;">
+                        Oops no text to show 😅😅😅 !!!! 
+                    </h5></center>
+                    
+                    <% } %>
+                <% privitems.forEach(function(image) { %>
+
+                <div class="column">
+
+                    <div class="card " style="width: 18rem; height: 19rem;margin: 10px;">
+
+                        <div class="card-body" style="background-color: rgb(244, 244, 186);font-family: cursive;">
+                            <h5 class="card-title" style="color: rgb(21, 148, 95);"><%= image.name %></h5>
+                            <p class="card-text" id="txt" style="color: black;"><%= image.desc %></p>
+                            <a href="/deletedoc/<%= image._id%>" class="btn btn-primary">Delete</a>
+                            <a href="" id="link" onclick = "CreateTextFile();" class="btn btn-danger">Download</a>
+                            <script>
+                                function CreateTextFile() {
+                                    var text= '<%-image.desc%>'
+                                    var blob = new Blob([text], {
+                                        type: "text/plain;charset=utf-8",
+                                    });
+                                    saveAs(blob, "download.txt");
+                                }
+                            </script>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <% }) %>
+
+            </div>
+
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
+    </body>
+
+</html>
