@@ -1,4 +1,4 @@
-  class AuthVer{
+ class AuthVer{
     static isLogin = async(req,res,next)=>{
         try{
             if(req.session.user_id){}
